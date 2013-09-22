@@ -1,0 +1,39 @@
+/* Large screen devices */
+/* iPad - Landscape */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+	.pressgram-layout-2wide { display: inline-block !important; width: 47% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-3wide { display: inline-block !important; width: 30% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-4wide { display: inline-block !important; width: 22% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-5wide { display: inline-block !important; width: 17% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+}
+
+/* Anything wider than 768px */
+@media only screen and (min-width: 768px) {
+	.pressgram-layout-2wide { display: inline-block !important; width: 47% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-3wide { display: inline-block !important; width: 30% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-4wide { display: inline-block !important; width: 22% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-5wide { display: inline-block !important; width: 17% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+}
+
+/* Small screen devices */
+/* iPad - Portrait */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+	.pressgram-layout-mobile-2wide { display: inline-block !important; width: 47% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-3wide { display: inline-block !important; width: 30% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-4wide { display: inline-block !important; width: 22% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-5wide { display: inline-block !important; width: 17% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+}
+
+/* Anything narrower than 768px */
+@media only screen and (max-width: 767px) {
+	.pressgram-layout-mobile-2wide { display: inline-block !important; width: 47% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-3wide { display: inline-block !important; width: 30% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-4wide { display: inline-block !important; width: 22% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+	.pressgram-layout-mobile-5wide { display: inline-block !important; width: 17% !important; margin: 0 2% 10px 0 !important; vertical-align: top !important; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+}
+
+/* Common styles */
+*[class*='pressgram-layout-'] .featured-image { display: block; width: 100%; height: auto; max-height: none !important; max-width: none !important; margin-bottom: 10px; }
+*[class*='pressgram-layout-'] div { width: 100% !important; }
+*[class*='pressgram-layout-'] div.sharedaddy .sd-title { display:none; }
+*[class*='pressgram-layout-'] div.sharedaddy .sd-content { width: 100%; }
