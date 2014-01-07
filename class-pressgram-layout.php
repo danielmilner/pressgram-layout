@@ -1,23 +1,21 @@
 <?php
 /**
- * Pressgram Layout.
+ * Layout Settings for Pressgram.
  *
- * @package   Pressgram_Layout
- * @author    Daniel Milner <me@danielmilner.com>
+ * @package   Layout_Settings_for_Pressgram
+ * @author    Daniel Milner <daniel@firetreedesign.com>
  * @license   GPL-2.0+
- * @link      http://danielmilner.com
- * @copyright 2013 Daniel Milner
+ * @link      http://firetreedesign.com
+ * @copyright 2013 FireTree Design
  */
 
 /**
  * Plugin class.
  *
- * TODO: Rename this class to a proper name for your plugin.
- *
- * @package Pressgram_Layout
- * @author  Daniel Milner <me@danielmilner.com>
+ * @package Layout_Settings_for_Pressgram
+ * @author  Daniel Milner <daniel@firetreedesign.com>
  */
-class Pressgram_Layout {
+class Layout_Settings_for_Pressgram {
 
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
@@ -26,7 +24,7 @@ class Pressgram_Layout {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.1.0';
+	const VERSION = '1.1.3';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -236,9 +234,9 @@ class Pressgram_Layout {
 		$pressgram_category = get_option( 'pressgram_category' );
 		if ( is_category($pressgram_category) ) {
 			wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'css/public.css', __FILE__ ), array(), self::VERSION );
-		}
+		} // end if
 		
-	}
+	} // end enqueue_styles
 	
 	/**
 	 * Registers the Pressgram Layout setting and field with the WordPress Settings API.
@@ -249,18 +247,19 @@ class Pressgram_Layout {
 
 		if ( is_plugin_active('pressgram/pressgram.php') ) {
 			// First, register the setting for the Pressgram field
-			register_setting( 'general', 'pressgram_layout', 'esc_attr' );
-			register_setting( 'general', 'pressgram_layout_mobile', 'esc_attr' );
-			register_setting( 'general', 'pressgram_layout_posts_per_page', 'esc_attr' );
+			register_setting( 'media', 'pressgram_layout', 'esc_attr' );
+			register_setting( 'media', 'pressgram_layout_mobile', 'esc_attr' );
+			register_setting( 'media', 'pressgram_layout_posts_per_page', 'esc_attr' );
 
 			// Now introduce the settings field
 			add_settings_field(
 				'pressgram_layout',
-				__( 'Pressgram Layout' , 'pressgram-layout' ),
+				__( 'Layout Settings for Pressgram' , 'pressgram-layout' ),
 				array( $this, 'display_pressgram_layout' ) ,
-				'general'
+				'media',
+				'pressgram'
 			);
-		}
+		} // end if
 
 	} // end register_pressgram_layout_fields
 	
@@ -297,6 +296,7 @@ class Pressgram_Layout {
 		
 		$html .= '<br><br>';
 		$html .=  '<select id="pressgram_layout_posts_per_page" name="pressgram_layout_posts_per_page">';
+			$html .= '<option value="default"' . selected( 'default', $pressgram_layout_posts_per_page_value, FALSE ) . '>' . __( 'WordPress Default', 'pressgram-layout' ) . '</option>';
 			$html .= '<option value="10"' . selected( '10', $pressgram_layout_posts_per_page_value, FALSE ) . '>' . __( '10', 'pressgram-layout' ) . '</option>';
 			$html .= '<option value="20"' . selected( '20', $pressgram_layout_posts_per_page_value, FALSE ) . '>' . __( '20', 'pressgram-layout' ) . '</option>';
 			$html .= '<option value="30"' . selected( '30', $pressgram_layout_posts_per_page_value, FALSE ) . '>' . __( '30', 'pressgram-layout' ) . '</option>';
@@ -339,11 +339,11 @@ class Pressgram_Layout {
 		if (current_user_can('manage_options')) {
 		   // Shows as an error message. You could add a link to the right page if you wanted.
 		   echo '<div id="message" class="error">';
-		   echo '<p><strong>' . __('Pressgram Layout', 'pressgram-layout') . '</strong> ' . __('requires the official', 'pressgram-layout') . ' <a href="http://wordpress.org/plugins/pressgram/" target="_blank">' . __('Pressgram', 'presgram-layout') . '</a> plugin to be installed and activated.</p>';
+		   echo '<p><strong>' . __('Layout Settings for Pressgram', 'pressgram-layout') . '</strong> ' . __('requires the official', 'pressgram-layout') . ' <a href="http://wordpress.org/plugins/pressgram/" target="_blank">' . __('Pressgram', 'presgram-layout') . '</a> plugin to be installed and activated.</p>';
 		   echo '</div>';
-		}
+		} // end if
 		
-	}
+	} // end show_pressgram_required
 	
 	/**
 	 * Add post class to the selected Pressgram category
@@ -359,14 +359,14 @@ class Pressgram_Layout {
 			$pressgram_layout = get_option( 'pressgram_layout' );
 			if ( $pressgram_layout != "off" ) {
 				$classes[] = 'pressgram-layout-' . $pressgram_layout;
-			}
+			} // end if
 			
 			$pressgram_layout_mobile = get_option( 'pressgram_layout_mobile' );
 			if ( $pressgram_layout_mobile != "off" ) {
 				$classes[] = 'pressgram-layout-mobile-' . $pressgram_layout_mobile;
-			}
+			} // end if
 			
-		}
+		} // end if
 		return $classes;
 
 	} // end pressgram_layout_post_class
@@ -379,12 +379,17 @@ class Pressgram_Layout {
 	public function pressgram_layout_pagesize( $query ) {
 		// First, grab the Pressgram category
 		$pressgram_category = get_option( 'pressgram_category' );
-		if ( is_category($pressgram_category) ) {
-			// Display 20 posts
+		if ( is_category($pressgram_category) && $query->is_main_query() ) { // Check that it's the Pressgram category and the main loop
+			// Get the posts_per_page value from the settings
 			$pressgram_layout_posts_per_page_value = get_option( 'pressgram_layout_posts_per_page' );
+			// Check if it's set to WordPress Default and grab the default setting
+			if ( $pressgram_layout_posts_per_page_value == "default" ) {
+				$pressgram_layout_posts_per_page_value = get_option('posts_per_page');
+			} // end if
+			// Set the posts_per_page for the main loop
 			$query->set( 'posts_per_page', $pressgram_layout_posts_per_page_value );
-			return;
-		}
-	}
+		} // end if
+		return;
+	} // end pressgram_layout_pagesize
 	
 }
